@@ -741,3 +741,46 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
+/* Hide error messages by default */
+.error-message {
+    display: none;
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+/* Display error messages when .visible class is added */
+.error-message.visible {
+    display: block;
+}
+
+/* Form Status Message Styling */
+#formStatus {
+    display: none;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #2ecc71;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+}
+
+#formStatus.success {
+    display: block;
+}
+
+
+/* Error prompt message styling */
+.error-message {
+    display: none;
+    color: #e74c3c;
+    font-size: 0.82rem;
+    margin-top: 4px;
+    text-align: left;
+}
+
+/* Make error visible */
+.error-message.visible {
+    display: block;
+}

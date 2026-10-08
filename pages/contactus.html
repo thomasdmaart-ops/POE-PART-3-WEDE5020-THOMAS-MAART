@@ -4,36 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Ensure path to validation.js is correct relative to this HTML file -->
+    <script src="../javascript/validation.js" defer></script>
 </head>
 <body>
   <header class="site-header">
-
     <div class="logo">
-        <img src="../images/logo 1.png"
-             alt="The GoodLife Bakery Logo"
-             class="logo-img">
-
+        <img src="../images/logo 1.png" alt="The GoodLife Bakery Logo" class="logo-img">
         <h2>The GoodLife Bakery</h2>
     </div>
-        <nav class="navbar">
-            <ul>
-                <a href="../index.html">Home</a>
-                <a href="./about.html">About</a>
-                <a href="./services.html" >Services</a>
-                <a href="./enquiry.html">Enquiry</a>
-                <a href="./contactus.html">Contact Us</a>
-            </ul>
-            </nav>
-        </div>
-</header>
+    <nav class="navbar">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./enquiry.html">Enquiry</a></li>
+            <li><a href="./contactus.html">Contact Us</a></li>
+        </ul>
+    </nav>
+  </header>
 
-<!-- BLUE HERO SECTION -->
+    <!-- BLUE HERO SECTION -->
     <section class="hero-banner">
         <h1>Gqeberha Main Bakery</h1>
         <p>Customers can easily get in touch with our team or visit our bakery hub in Walmer.</p>
     </section>
- <!-- MAIN 2-COLUMN SECTION -->
+
+    <!-- MAIN 2-COLUMN SECTION -->
     <main class="main-content">
         <div class="container-grid">
 
@@ -88,46 +86,59 @@
                     </div>
                 </div>
             </div>
-<!-- RIGHT COLUMN: Form Card -->
+
+            <!-- RIGHT COLUMN: Form Card -->
             <div class="col-right">
                 <div class="form-card">
                     <h3>Get In Touch</h3>
-                    <form action="#" method="post">
+
+                    <!-- Message shown on success -->
+                    <div id="formStatus" class="form-status">Form submitted successfully!</div>
+
+                    <form id="contactForm" class="contact-form" novalidate>
                         <div class="form-group">
-                            <input type="text" name="fullname" placeholder="Full name" required>
+                            <input type="text" id="fullName" name="fullname" placeholder="Full name">
+                            <span class="error-message" id="nameError">Full name must be at least 3 characters.</span>
+                        </div>
+
+                        
+                    <div class="form-group">
+                      <input type="tel" id="contact" name="contact" placeholder="Contact Number">
+                    <span class="error-message" id="phoneError">Please enter a valid contact number.</span>
+                    </div>
+
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Email">
+                            <span class="error-message" id="emailError">Please enter a valid email address.</span>
                         </div>
 
                         <div class="form-group">
-                            <input type="tel" name="contact" placeholder="Contact Number" required>
+                            <input type="text" id="interest" name="interest" placeholder="I am looking to buy...">
                         </div>
 
+                        <!-- Location Select Field -->
                         <div class="form-group">
-                            <input type="email" name="email" placeholder="Email" required>
-                        </div>
+                        <select id="locationSelect" name="location">
+                        <option value="" disabled selected>Location</option>
+                        <option value="walmer">Walmer Branch</option>
+                        <option value="summerstrand">Summerstrand Express</option>
+                        </select>
+                        <span class="error-message" id="locationError">Please select a bakery location.</span>
+                     </div>
 
                         <div class="form-group">
-                            <input type="text" name="interest" placeholder="I am looking to buy..." required>
-                        </div>
-
-                        <div class="form-group">
-                            <select name="location" required>
-                                <option value="" disabled selected>Location</option>
-                                <option value="walmer">Walmer Branch</option>
-                                <option value="summerstrand">Summerstrand Express</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <select name="enquiry_type" required>
+                            <select id="serviceSelect" name="enquiry_type">
                                 <option value="" disabled selected>Please select type of enquiry</option>
                                 <option value="bakery">Artisan Breads & Pastries</option>
                                 <option value="cakes">Custom Cake Ordering</option>
                                 <option value="catering">Event Catering</option>
                             </select>
+                            <span class="error-message" id="serviceError">Please select an enquiry option.</span>
                         </div>
 
                         <div class="form-group">
-                            <textarea name="comment" rows="4" placeholder="Comment" required></textarea>
+                            <textarea id="message" name="comment" rows="4" placeholder="Comment"></textarea>
+                            <span class="error-message" id="messageError">Comment must be at least 10 characters long.</span>
                         </div>
 
                         <button type="submit" class="btn-submit-form">Submit</button>
@@ -138,8 +149,7 @@
         </div>
     </main>
 
-    </main>
-   <!-- FOOTER: 4 COLUMNS REQUIRED BY ICE TASK 4 -->
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-col">
@@ -169,7 +179,7 @@
             <div class="footer-col">
                 <h4>Talk To Us</h4>
                 <p>Tel: 041 555 0192</p>
-                <p>Email:goodlifebakery@outlook.com</p>
+                <p>Email: goodlifebakery@outlook.com</p>
                 <div class="social-links">
                     <a href="https://facebook.com" target="_blank">Facebook</a>
                     <a href="https://instagram.com" target="_blank">Instagram</a>

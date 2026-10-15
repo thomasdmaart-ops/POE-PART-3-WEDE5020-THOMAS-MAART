@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./javascript/lightbox.js" defer></script>
+    <script src="./javascript/main.js" defer></script>
+    <script src="./javascript/search.js" defer></script>
+    <script src="./javascript/validation.js" defer></script>
     <title>The GoodLife Bakery | Home</title>
 </head>
 <body>
@@ -12,6 +16,13 @@
             <img src="images/logo 1.png" alt="The GoodLife Bakery Logo" class="logo-img">
             <h2>The GoodLife Bakery</h2>
         </div>
+        
+    
+        <div class="search-container">
+            <input type="text" id="site-search" placeholder="Search products, services..." aria-label="Search site">
+            <button id="search-btn" type="button">🔍</button>
+        </div>
+
         <nav class="navbar">
             <ul>
                 <li><a href="./index.html">Home</a></li>
@@ -24,7 +35,7 @@
     </header>
 
     <main>
-        <!-- NEW: Hero Banner -->
+        <!-- Hero Banner -->
         <section class="hero-section">
             <div class="hero-content">
                 <h1>Crafted With Love in Gqeberha</h1>
@@ -36,7 +47,7 @@
             </div>
         </section>
 
-        <!-- NEW: Value Highlights Bar -->
+        <!-- Value Highlights Bar -->
         <section class="features-section">
             <div class="feature-item">
                 <span class="feature-icon">🌾</span>
@@ -82,18 +93,15 @@
                 
                 <div class="product-card">
                     <img src="images/Personalised Cakes.png" alt="Personalised Cakes">
-                    <dic class="product-info">
+                    <div class="product-info">
                         <h3>Personalised Cakes</h3>
                         <p>Personalised the way you want it & need to be...Create your own</p>
-                    </dic>
+                    </div>
                 </div>
-
-
-               
             </div>
         </section>
 
-        <!-- NEW: Testimonials Section -->
+        <!-- Testimonials Section -->
         <section class="testimonials-section">
             <h2>What Our Customers Say</h2>
             <div class="testimonials-grid">
@@ -109,7 +117,7 @@
         </section>
     </main>
 
-    <!-- FOOTER: 4 COLUMNS REQUIRED BY ICE TASK 4 -->
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-col">

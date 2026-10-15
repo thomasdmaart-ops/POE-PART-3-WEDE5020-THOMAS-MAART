@@ -5,7 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Ensure path to validation.js is correct relative to this HTML file -->
+    
+    <!-- 1. EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- 2. EmailJS Initialization -->
+    <script type="text/javascript">
+      (function() {
+        emailjs.init("JftgMJjrmORcyLyKA");
+      })();
+    </script>
+
+    <script src="../javascript/lightbox.js" defer></script>
+    <script src="../javascript/main.js" defer></script>
+    <script src="../javascript/search.js" defer></script>
     <script src="../javascript/validation.js" defer></script>
 </head>
 <body>
@@ -14,6 +27,12 @@
         <img src="../images/logo 1.png" alt="The GoodLife Bakery Logo" class="logo-img">
         <h2>The GoodLife Bakery</h2>
     </div>
+
+    <div class="search-container">
+            <input type="text" id="site-search" placeholder="Search products, services..." aria-label="Search site">
+            <button id="search-btn" type="button">🔍</button>
+        </div>
+        
     <nav class="navbar">
         <ul>
             <li><a href="../index.html">Home</a></li>
@@ -92,8 +111,8 @@
                 <div class="form-card">
                     <h3>Get In Touch</h3>
 
-                    <!-- Message shown on success -->
-                    <div id="formStatus" class="form-status">Form submitted successfully!</div>
+                    <!-- Dynamic Form Status Message -->
+                    <div id="formStatus" class="form-status" style="display: none; padding: 10px; margin-bottom: 15px; border-radius: 4px; font-weight: bold;"></div>
 
                     <form id="contactForm" class="contact-form" novalidate>
                         <div class="form-group">
@@ -101,11 +120,10 @@
                             <span class="error-message" id="nameError">Full name must be at least 3 characters.</span>
                         </div>
 
-                        
-                    <div class="form-group">
-                      <input type="tel" id="contact" name="contact" placeholder="Contact Number">
-                    <span class="error-message" id="phoneError">Please enter a valid contact number.</span>
-                    </div>
+                        <div class="form-group">
+                          <input type="tel" id="contact" name="contact" placeholder="Contact Number">
+                          <span class="error-message" id="phoneError">Please enter a valid contact number.</span>
+                        </div>
 
                         <div class="form-group">
                             <input type="email" id="email" name="email" placeholder="Email">
@@ -118,20 +136,20 @@
 
                         <!-- Location Select Field -->
                         <div class="form-group">
-                        <select id="locationSelect" name="location">
-                        <option value="" disabled selected>Location</option>
-                        <option value="walmer">Walmer Branch</option>
-                        <option value="summerstrand">Summerstrand Express</option>
-                        </select>
-                        <span class="error-message" id="locationError">Please select a bakery location.</span>
-                     </div>
+                            <select id="locationSelect" name="location">
+                                <option value="" disabled selected>Location</option>
+                                <option value="walmer">Walmer Branch</option>
+                                <option value="summerstrand">Summerstrand Express</option>
+                            </select>
+                            <span class="error-message" id="locationError">Please select a bakery location.</span>
+                        </div>
 
                         <div class="form-group">
                             <select id="serviceSelect" name="enquiry_type">
                                 <option value="" disabled selected>Please select type of enquiry</option>
-                                <option value="bakery">Artisan Breads & Pastries</option>
-                                <option value="cakes">Custom Cake Ordering</option>
-                                <option value="catering">Event Catering</option>
+                                <option value="Artisan Breads & Pastries">Artisan Breads & Pastries</option>
+                                <option value="Custom Cake Ordering">Custom Cake Ordering</option>
+                                <option value="Event Catering">Event Catering</option>
                             </select>
                             <span class="error-message" id="serviceError">Please select an enquiry option.</span>
                         </div>
@@ -141,7 +159,7 @@
                             <span class="error-message" id="messageError">Comment must be at least 10 characters long.</span>
                         </div>
 
-                        <button type="submit" class="btn-submit-form">Submit</button>
+                        <button type="submit" id="submitBtn" class="btn-submit-form">Submit</button>
                     </form>
                 </div>
             </div>
@@ -192,5 +210,68 @@
             <p>&copy; 2026 The GoodLife Bakery. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- EmailJS Submission Logic -->
+    <script type="text/javascript">
+      document.getElementById('contactForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const submitBtn = document.getElementById('submitBtn');
+        const formStatus = document.getElementById('formStatus');
+
+        // Optional: If you have existing JS validation in validation.js, check before sending
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if (!fullName || !email || !message) {
+            formStatus.style.display = "block";
+            formStatus.style.backgroundColor = "#ffe6e6";
+            formStatus.style.color = "#d9534f";
+            formStatus.innerText = "Please fill out all required fields before submitting.";
+            return;
+        }
+
+        // Processing state
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Sending...";
+        formStatus.style.display = "none";
+
+        // Map inputs to template variables matching your dashboard layout[cite: 6]
+        const serviceSelect = document.getElementById('serviceSelect');
+        const selectedEnquiry = serviceSelect.options[serviceSelect.selectedIndex]?.text || "General Inquiry";
+
+        const templateParams = {
+          title: selectedEnquiry,                                    // Populates {{title}}[cite: 6]
+          fullName: fullName,                                       // Populates {{fullName}}[cite: 6]
+          email: email,                                             // Populates {{email}}[cite: 6]
+          mobileNumber: document.getElementById('contact').value,    // Populates {{mobileNumber}}[cite: 6]
+          subject: document.getElementById('interest').value || "Contact Form Submission", // Populates {{subject}}[cite: 6]
+          message: message                                          // Populates {{message}}[cite: 6]
+        };
+
+        // Service ID: service_12j6fjx | Template ID: gtj6skd[cite: 6]
+        emailjs.send("service_12j6fjx", "template_92uvyur", templateParams)
+          .then(function (response) {
+            console.log('SUCCESS!', response.status, response.text);
+            formStatus.style.display = "block";
+            formStatus.style.backgroundColor = "#d4edda";
+            formStatus.style.color = "#155724";
+            formStatus.innerText = "Form submitted successfully! We will get back to you soon.";
+            document.getElementById('contactForm').reset();
+          })
+          .catch(function (error) {
+            console.error('FAILED...', error);
+            formStatus.style.display = "block";
+            formStatus.style.backgroundColor = "#f8d7da";
+            formStatus.style.color = "#721c24";
+            formStatus.innerText = "Failed to send message. Please try again later.";
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Submit";
+          });
+      });
+    </script>
 </body>
 </html>

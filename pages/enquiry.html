@@ -4,7 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Link to JavaScript Validation -->
+    
+    <!-- 1. EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- 2. EmailJS Initialization -->
+    <script type="text/javascript">
+      (function() {
+        emailjs.init("JftgMJjrmORcyLyKA");
+      })();
+    </script>
+
+    <script src="../javascript/lightbox.js" defer></script>
+    <script src="../javascript/main.js" defer></script>
+    <script src="../javascript/search.js" defer></script>
     <script src="../javascript/validation.js" defer></script>
     <title>Enquire</title>
 </head>
@@ -16,13 +29,19 @@
              class="logo-img">
         <h2>The GoodLife Bakery</h2>
     </div>
+
+    <div class="search-container">
+            <input type="text" id="site-search" placeholder="Search products, services..." aria-label="Search site">
+            <button id="search-btn" type="button">🔍</button>
+        </div>
+        
     <nav class="navbar">
         <ul>
-            <a href="../index.html">Home</a>
-            <a href="./about.html">About</a>
-            <a href="./services.html">Services</a>
-            <a href="./enquiry.html">Enquiry</a>
-            <a href="./contactus.html">Contact Us</a>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./enquiry.html">Enquiry</a></li>
+            <li><a href="./contactus.html">Contact Us</a></li>
         </ul>
     </nav>
 </header>
@@ -32,8 +51,9 @@
       <div class="form-card">
         <h3>Custom Order & Catering Form</h3>
         <p class="form-intro">Please fill out the form below to request a quote for custom cakes or event catering.</p>
-        
-     
+
+        <!-- Status Notification Box -->
+        <div id="enquiryStatus" style="display: none; padding: 12px; margin-bottom: 20px; border-radius: 4px; font-weight: bold; text-align: center;"></div>
 
         <form id="enquiryForm" novalidate>
           <div class="form-group">
@@ -58,10 +78,10 @@
             <label for="enquiry">Enquiry Type</label>
             <select id="enquiry">
               <option value="" disabled selected>Please select type of enquiry</option>
-              <option value="birthday">Custom Birthday / Celebration Cake</option>
-              <option value="wedding">Wedding Cake</option>
-              <option value="catering">Event Catering</option>
-              <option value="corporate">Corporate Order</option>
+              <option value="Custom Birthday / Celebration Cake">Custom Birthday / Celebration Cake</option>
+              <option value="Wedding Cake">Wedding Cake</option>
+              <option value="Event Catering">Event Catering</option>
+              <option value="Corporate Order">Corporate Order</option>
             </select>
             <span class="error-message" id="enquiryTypeError">Please select an enquiry option.</span>
           </div>
@@ -79,7 +99,7 @@
           </div>
 
           <div class="button-group">
-            <button type="submit" class="btn-submit-form">Submit Order Enquiry</button>
+            <button type="submit" id="submitEnquiryBtn" class="btn-submit-form">Submit Order Enquiry</button>
             <button type="reset" class="btn-secondary">Clear Form</button>
           </div>
         </form>
@@ -129,5 +149,70 @@
           <p>&copy; 2026 The GoodLife Bakery. All rights reserved.</p>
       </div>
   </footer>
+
+  <!-- EmailJS Integration Logic -->
+  <script type="text/javascript">
+    document.getElementById('enquiryForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const submitBtn = document.getElementById('submitEnquiryBtn');
+      const statusBox = document.getElementById('enquiryStatus');
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const enquirySelect = document.getElementById('enquiry');
+      const enquiryType = enquirySelect.options[enquirySelect.selectedIndex]?.text || "General Order Enquiry";
+      const requiredDate = document.getElementById('date').value;
+      const details = document.getElementById('details').value.trim();
+
+      // Basic validation check before sending
+      if (!name || !email || !details) {
+        statusBox.style.display = "block";
+        statusBox.style.backgroundColor = "#ffe6e6";
+        statusBox.style.color = "#d9534f";
+        statusBox.innerText = "Please complete all required fields before submitting.";
+        return;
+      }
+
+      // UI updates during sending
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Sending Order Enquiry...";
+      statusBox.style.display = "none";
+
+      // Build parameters matching template placeholders[cite: 6]
+      const templateParams = {
+        title: `Order Enquiry: ${enquiryType}`,                   // Populates {{title}}[cite: 6]
+        fullName: name,                                          // Populates {{fullName}}[cite: 6]
+        email: email,                                            // Populates {{email}}[cite: 6]
+        mobileNumber: phone,                                     // Populates {{mobileNumber}}[cite: 6]
+        subject: `Required Date: ${requiredDate || 'Not Specified'}`, // Populates {{subject}}[cite: 6]
+        message: `Enquiry Type: ${enquiryType}\nRequired Date: ${requiredDate}\n\nDetails:\n${details}` // Populates {{message}}[cite: 6]
+      };
+
+      // Service ID: service_12j6fjx | Template ID: template_92uvyur
+      // Note: Replace template ID if using a different template in dashboard
+      emailjs.send("service_12j6fjx", "template_92uvyur", templateParams)
+        .then(function (response) {
+          console.log('SUCCESS!', response.status, response.text);
+          statusBox.style.display = "block";
+          statusBox.style.backgroundColor = "#d4edda";
+          statusBox.style.color = "#155724";
+          statusBox.innerText = "Thank you! Your custom order enquiry has been received.";
+          document.getElementById('enquiryForm').reset();
+        })
+        .catch(function (error) {
+          console.error('FAILED...', error);
+          statusBox.style.display = "block";
+          statusBox.style.backgroundColor = "#f8d7da";
+          statusBox.style.color = "#721c24";
+          statusBox.innerText = "Failed to send order enquiry. Please try again later.";
+        })
+        .finally(function () {
+          submitBtn.disabled = false;
+          submitBtn.innerText = "Submit Order Enquiry";
+        });
+    });
+  </script>
 </body>
 </html>

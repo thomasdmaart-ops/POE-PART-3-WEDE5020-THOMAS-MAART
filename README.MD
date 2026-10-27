@@ -1,71 +1,86 @@
-```markdown
-# The Goodlife Bakery – WEDE5020 Part 2
+# The Goodlife Bakery – Full-Stack Web Application
 
-This repository contains the web application and project assets for **The Goodlife Bakery** website, developed as part of the WEDE5020 Part 2 assessment. The project features a responsive multi-page layout built using HTML5 and custom CSS3, highlighting modern web design principles, UI wireframes, and structured media assets.
+This repository contains the complete responsive web application for **The Goodlife Bakery**, built as part of the WEDE5020 assessment. The platform features an interactive multi-page frontend built with HTML5, custom CSS3, modular JavaScript, client-side form validation, dynamic image lightboxes, site-wide search, and EmailJS backend integration.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
-THOMAS-MAART-WEDE5020-PART-2/
+THOMAS-MAART-WEDE5020/
 ├── css/
-│   └── style.css            # Custom CSS stylesheet for layout and components
-├── images/
-│   └── Artisan bread.png    # Media assets and promotional visuals
-├── index.html               # Primary landing page and entry point
-├── README.md                # Project documentation and setup guide
-└── CHANGELOG.md             # Version history and detailed project log
+│   └── style.css            # Centralized stylesheet (branding, layouts, search, forms, footer)
+├── images/                  # Product imagery, logos, and visual assets
+│   ├── Artisan bread.png
+│   ├── Butter Croissants.png
+│   ├── Personalised Cakes.png
+│   ├── Traditional Sourdough.png
+│   └── logo 1.png
+├── javascript/              # Modular JavaScript files
+│   ├── lightbox.js          # Interactive image modal viewer
+│   ├── main.js              # Active nav highlighting and smooth scrolling
+│   ├── search.js            # Live site search index and dropdown parser
+│   └── validation.js        # Form validation and South African phone/email regex checks
+├── pages/                   # Multi-page HTML views
+│   ├── about.html           # Bakery story, mission, and vision
+│   ├── contactus.html       # Location details, Google Maps embed, opening hours & contact form
+│   ├── enquiry.html         # Custom order & catering quote request form
+│   └── services.html        # Bakery service and product offerings menu
+├── index.html               # Main landing page & hero banner
+├── README.md                # Project overview and instructions
+└── CHANGELOG.md             # Version history and detailed feature logs
 
-```
+Key Features & Functionality
+Responsive Multi-Page Layout: Fully accessible layout optimized across desktop, tablet, and mobile breakpoints using CSS Grid and Flexbox.
 
----
+Client-Side Form Validation: Dynamic error handling for user inputs using regex matching for South African phone numbers (+27 / 0...) and standard email addresses.
 
-## 🚀 Getting Started
+EmailJS Integration: Real-time email delivery directly from contactus.html and enquiry.html with live status messages (Sending..., success/failure notifications).
 
-### Prerequisites
+Live Site-Wide Search: Instant search functionality indexing static site paths and dynamically parsing headings and content from the active DOM.
 
-* Any modern web browser (e.g., Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari).
-* Code editor (e.g., [Visual Studio Code](https://code.visualstudio.com/)).
+Interactive Image Lightbox: Modal window that opens high-resolution views of product/service cards on click, supporting keyboard (ESC) and backdrop dismissal.
 
-### Running the Project
+Accessible Navigation & Footers: Automatic link highlighting (.active), social media links with SVG icons, and standard contact details.
 
-1. **Extract** the submitted project ZIP folder (`THOMAS-MAART-WEDE5020-PART-2.zip`) to your desired directory.
-2. **Open Visual Studio Code**:
-* Navigate to `File` > `Open Folder...` and select the extracted project folder.
+Getting Started
+Prerequisites
+Any modern web browser (Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari).
 
+Code editor (e.g., Visual Studio Code).
 
-3. **Launch the Site**:
-* Double-click `index.html` in your file explorer to view it directly in your web browser.
-* *Optional:* Right-click `index.html` inside Visual Studio Code and select **Open with Live Server** if you have the Live Server extension enabled.
+Running the Project
+Clone or Extract the project repository to your desired folder.
 
+Open in Visual Studio Code:
 
+Go to File > Open Folder... and select the project root directory.
 
----
+Launch the Site:
 
-## 🛠️ Built With
+Open index.html directly in your browser, or
 
-* **HTML5**: Semantic document hierarchy and content layout.
-* **CSS3**: Custom layouts, typography, styling, and media query responsiveness.
-* **Figma & draw.io**: UI/UX wireframing and design planning.
+Use the Live Server extension in VS Code by right-clicking index.html and selecting Open with Live Server.
 
----
+Tech Stack & Dependencies
+HTML5: Semantic layout and document structure.
 
-## 👤 Author
+CSS3: Custom design system using CSS variables, Flexbox, CSS Grid, and media queries.
 
-* **Student Name**: Thomas Maart
-* **Module**: WEDE5020 – Web Development 1
+JavaScript (ES6+): Vanilla DOM manipulation, dynamic component creation, and validation logic.
 
+EmailJS Browser SDK (v4): Asynchronous REST client-side contact form dispatch.
 
-## Reference List
-​​Afrihost, 2026. Linux Web Hosting Plans & Domian Registration. [Online]  
-Available at: https://www.afrihost.com 
-[Accessed 07 August 2026]. 
+Figma & draw.io: UI/UX wireframing, layout architecture, and prototyping.
 
-​w3schools, 2026. Html. [Online]  
-Available at: https://www.w3schools.com/ 
-[Accessed 05 August 2026]. 
+Author
+Student Name: Thomas Maart
 
-```
+Module: WEDE5020 – Web Development 1
 
-```
+References
+Afrihost, 2026. Linux Web Hosting Plans & Domain Registration. [Online] Available at: https://www.afrihost.com [Accessed 07 August 2026].
+
+EmailJS, 2026. EmailJS Documentation and SDK Reference. [Online] Available at: https://www.emailjs.com/docs/ [Accessed 15 October 2026].
+
+W3Schools, 2026. HTML5, CSS3, and JavaScript Guides. [Online] Available at: https://www.w3schools.com/ [Accessed 05 August 2026].

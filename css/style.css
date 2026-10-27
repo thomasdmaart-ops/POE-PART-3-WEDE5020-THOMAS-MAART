@@ -868,3 +868,44 @@ a {
     color: #777;
     text-align: center;
 }
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.2rem 0.5rem;
+}
+
+.search-container input {
+    border: none;
+    outline: none;
+    padding: 0.4rem;
+    font-size: 0.9rem;
+    width: 180px;
+    background: transparent;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+/* Professional Vector Magnifying Glass Styling */
+.search-icon {
+    width: 18px;
+    height: 18px;
+    stroke: #555555; /* Adjust icon color as needed */
+    transition: stroke 0.2s ease;
+}
+
+.search-container button:hover .search-icon {
+    stroke: #c86d51; /* Matches your primary brand color on hover */
+}
